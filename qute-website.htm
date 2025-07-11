@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUTE: Quantum Understanding Through Experimentation</title>
+    <link rel="icon" href="https://i.ibb.co/YT1NVnhC/539c325e-7d56-49f7-a9c3-b977675e5b9e-removalai-preview.png" type="image/png">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the QUTE website */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0A0A1A; /* Dark blue-purple background */
+            color: #E0E0F0; /* Light off-white for text */
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Hero section background gradient */
+        .hero-gradient {
+            background: linear-gradient(180deg, #1A1A3A 0%, #0A0A1A 100%);
+        }
+
+        /* Card background with subtle gradient */
+        .card-bg {
+            background: linear-gradient(145deg, #1A1A3A, #0A0A1A);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added transition for hover */
+        }
+        .card-bg:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+            box-shadow: 0 15px 40px rgba(138, 43, 226, 0.4); /* Enhanced shadow with purple glow */
+        }
+
+        /* Button styling */
+        .btn-primary {
+            background: linear-gradient(90deg, #6A0DAD, #8A2BE2); /* Purple gradient */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(138, 43, 226, 0.4);
+            background: linear-gradient(90deg, #8A2BE2, #6A0DAD); /* Subtle gradient shift on hover */
+        }
+        /* Pulse animation for buttons */
+        @keyframes pulse-button {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(138, 43, 226, 0.7); }
+            70% { transform: scale(1.03); box-shadow: 0 0 0 15px rgba(138, 43, 226, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(138, 43, 226, 0); }
+        }
+        .btn-pulse {
+            animation: pulse-button 2s infinite;
+        }
+
+
+        /* Animated background elements (for subtle sci-fi feel) */
+        .animated-bg-element {
+            position: absolute;
+            background-color: rgba(138, 43, 226, 0.1); /* Light purple glow */
+            border-radius: 50%;
+            filter: blur(50px);
+            opacity: 0;
+            animation: pulse-glow 10s infinite ease-in-out alternate;
+        }
+
+        .element-1 { top: 10%; left: 5%; width: 150px; height: 150px; animation-delay: 0s; }
+        .element-2 { bottom: 20%; right: 10%; width: 200px; height: 200px; animation-delay: 2s; }
+        .element-3 { top: 50%; left: 20%; width: 100px; height: 100px; animation-delay: 4s; }
+
+        @keyframes pulse-glow {
+            0% { transform: scale(0.8); opacity: 0.2; }
+            50% { transform: scale(1.2); opacity: 0.4; }
+            100% { transform: scale(0.8); opacity: 0.2; }
+        }
+
+        /* Scroll animation for sections */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom SVG icons for qubits and gates */
+        .qubit-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: #4A90E2; /* Blue for |0⟩ */
+            border: 2px solid #6A0DAD;
+            box-shadow: 0 0 10px rgba(74, 144, 226, 0.5);
+            transition: transform 0.3s ease;
+        }
+        .qubit-icon:hover {
+            transform: scale(1.1); /* Slight enlarge on hover */
+        }
+        .gate-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 8px;
+            background-color: #8A2BE2; /* Purple for gates */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 0.8rem;
+            border: 2px solid #6A0DAD;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gate-icon:hover {
+            transform: scale(1.1) rotate(5deg); /* Slight enlarge and rotate on hover */
+            box-shadow: 0 0 15px rgba(138, 43, 226, 0.7); /* Glow on hover */
+        }
+
+        /* Chatbot button and container styles */
+        #open-chatbot-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(90deg, #4A90E2, #6A0DAD); /* Blue-purple gradient */
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            z-index: 1000;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        #open-chatbot-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.6);
+        }
+
+        #chatbot-container {
+            position: fixed;
+            bottom: 90px; /* Above the button */
+            right: 20px;
+            width: 350px; /* Adjust width as needed */
+            height: 500px; /* Adjust height as needed */
+            background-color: #1A1A3A;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            overflow: hidden; /* Hide iframe scrollbars if content is larger */
+        }
+
+        #chatbot-container.active {
+            display: flex;
+        }
+
+        #chatbot-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            background-color: #0A0A1A;
+            border-bottom: 1px solid #2A2A4A;
+            color: white;
+            font-weight: bold;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        #close-chatbot-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+        #close-chatbot-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Simulated Chatbot specific styles */
+        .simulated-chatbot-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background-color: #1A1A3A;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 15px;
+            word-wrap: break-word;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background-color: #6A0DAD; /* Purple for user messages */
+            color: white;
+            border-bottom-right-radius: 2px;
+        }
+
+        .bot-message {
+            align-self: flex-start;
+            background-color: #2A2A4A; /* Darker blue for bot messages */
+            color: #E0E0F0;
+            border-bottom-left-radius: 2px;
+        }
+
+        .simulated-chatbot-input {
+            display: flex;
+            padding: 10px 15px;
+            border-top: 1px solid #2A2A4A;
+            background-color: #0A0A1A;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+
+        .simulated-chatbot-input input {
+            flex-grow: 1;
+            background-color: #2A2A4A;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 15px;
+            color: white;
+            outline: none;
+            margin-right: 10px;
+        }
+
+        .simulated-chatbot-input button {
+            background: linear-gradient(90deg, #4A90E2, #6A0DAD);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .simulated-chatbot-input button:hover {
+            background: linear-gradient(90deg, #6A0DAD, #4A90E2);
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 768px) {
+            #chatbot-container {
+                width: 90%; /* Wider on smaller screens */
+                height: 70%; /* Taller on smaller screens */
+                bottom: 10%;
+                right: 5%;
+                left: 5%;
+                transform: translateX(0); /* Center horizontally */
+            }
+            #open-chatbot-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+                bottom: 15px;
+                right: 15px;
+            }
+        }
+    </style>
+</head>
+<body class="relative">
+
+    <!-- Animated background elements -->
+    <div class="animated-bg-element element-1"></div>
+    <div class="animated-bg-element element-2"></div>
+    <div class="animated-bg-element element-3"></div>
+
+    <!-- Header/Navigation -->
+    <!-- Header/Navigation -->
+    <header class="relative z-10 p-6 md:p-8 flex justify-between items-center bg-gradient-to-b from-[#1A1A3A] to-transparent">
+        <div class="h-10 md:h-12"> <!-- Container for the logo image -->
+            <img src="https://i.ibb.co/0RW2Qsns/5f61a053-fef1-41c0-9bc9-6fc0abe9e488-removalai-preview.png" alt="QUTE Logo" style="height: 100px; width: auto; margin-top: -25px;">
+        </div>
+        <nav>
+            <ul class="flex space-x-6">
+                <li><a href="https://www.instagram.com/playqute" class="text-gray-300 hover:text-white transition duration-300">About</a></li>
+                <li><a href="https://acoustic-toad-985.convex.app/" class="text-gray-300 hover:text-white transition duration-300">Gameplay</a></li>
+                <li><a href="https://poe.com/QUTE-Bot" class="text-gray-300 hover:text-white transition duration-300">Learning</a></li>
+                <li><a href="https://www.instagram.com/playqute" class="text-gray-300 hover:text-white transition duration-300">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative z-10 hero-gradient min-h-screen flex items-center justify-center text-center p-6 md:p-12">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight text-white mb-6 animate-fade-in-up">
+                Unlock the Quantum Universe
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-10 animate-fade-in-up animation-delay-300">
+                QUTE: Quantum Understanding Through Experimentation – The mobile game that makes quantum computing accessible, engaging, and fun.
+            </p>
+            <a href="https://acoustic-toad-985.convex.app/" class="btn-primary btn-pulse text-white font-bold py-4 px-8 rounded-xl text-lg inline-block animate-fade-in-up animation-delay-600">
+                Explore QUTE
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="relative z-10 py-20 px-6 md:px-12 bg-gradient-to-b from-[#0A0A1A] to-[#1A1A3A]">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center fade-in-section">
+            <div>
+                <h2 class="text-4xl font-bold text-white mb-6">About QUTE: Your Quantum Adventure</h2>
+                <p class="text-gray-300 text-lg leading-relaxed mb-4">
+                    Step into a futuristic lab as a Quantum Explorer! QUTE is a groundbreaking mobile game designed to demystify quantum computing. Your mission: solve intricate puzzles to fix "Quantum Instabilities" and ultimately repair a "Core Anomaly" in the lab's main processor.
+                </p>
+                <p class="text-gray-300 text-lg leading-relaxed">
+                    We've integrated a powerful backend with Qiskit to handle complex quantum simulations, ensuring a seamless and accurate learning experience directly on your mobile device. No prior knowledge needed – just curiosity!
+                </p>
+            </div>
+            <div class="card-bg p-8 rounded-2xl">
+                <img src="https://i.ibb.co/239jpKs9/gameplay-screenshot.png" alt="QUTE Game Lab View" class="rounded-xl shadow-lg mb-6">
+                <p class="text-gray-300 text-md">
+                    Explore a visually stunning futuristic lab environment.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works / Gameplay Section -->
+    <section id="gameplay" class="relative z-10 py-20 px-6 md:px-12 bg-gradient-to-b from-[#1A1A3A] to-[#0A0A1A]">
+        <div class="max-w-6xl mx-auto fade-in-section">
+            <h2 class="text-4xl font-bold text-white text-center mb-12">How QUTE Works: Simple Steps to Quantum Mastery</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Card 1: Drag & Drop -->
+                <div class="card-bg p-8 rounded-2xl text-center">
+                    <div class="text-5xl text-purple-400 mb-4">
+                        <!-- SVG for Drag & Drop -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-white mb-4">Drag & Drop Gates</h3>
+                    <p class="text-gray-300">
+                        Build quantum circuits easily by dragging gates onto qubit lines. It's like building with digital blocks!
+                    </p>
+                </div>
+                <!-- Card 2: Visual Cues -->
+                <div class="card-bg p-8 rounded-2xl text-center">
+                    <div class="text-5xl text-blue-400 mb-4">
+                        <!-- SVG for Visual Cues (Eye) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-white mb-4">See Qubits Transform</h3>
+                    <p class="text-gray-300">
+                        Watch qubits change color: blue for 0, red for 1, and a swirling mix for superposition. See entanglement happen!
+                    </p>
+                </div>
+                <!-- Card 3: Real-time Feedback -->
+                <div class="card-bg p-8 rounded-2xl text-center">
+                    <div class="text-5xl text-green-400 mb-4">
+                        <!-- SVG for Feedback (Checkmark) -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    </div>
+                    <h3 class="text-2xl font-semibold text-white mb-4">Instant Results</h3>
+                    <p class="text-gray-300">
+                        Get immediate visual feedback on your circuit. Learn from every action and see quantum mechanics in action.
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-16 card-bg p-8 rounded-2xl fade-in-section">
+                <h3 class="text-3xl font-semibold text-white mb-6 text-center">Meet the Quantum Gates: Your Tools for Discovery</h3>
+                <div class="grid md:grid-cols-3 gap-8 items-center">
+                    <div class="flex flex-col items-center text-center">
+                        <div class="gate-icon w-16 h-16 text-2xl mb-4">H</div>
+                        <h4 class="text-xl font-medium text-white mb-2">Hadamard (H)</h4>
+                        <p class="text-gray-300">Creates superposition: a qubit becomes both 0 and 1 at the same time!</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center">
+                        <div class="gate-icon w-16 h-16 text-2xl mb-4">CX</div>
+                        <h4 class="text-xl font-medium text-white mb-2">CNOT (CX)</h4>
+                        <p class="text-gray-300">Entangles qubits: the state of one instantly affects the other, no matter the distance.</p>
+                    </div>
+                    <div class="flex flex-col items-center text-center">
+                        <div class="gate-icon w-16 h-16 text-2xl mb-4">X</div>
+                        <h4 class="text-xl font-medium text-white mb-2">Pauli-X (NOT)</h4>
+                        <p class="text-gray-300">Flips a qubit's state: 0 becomes 1, and 1 becomes 0. Simple, yet powerful!</p>
+                    </div>
+                </div>
+            </div>
+            <!-- New section for a gameplay screenshot -->
+            <div class="mt-16 card-bg p-8 rounded-2xl fade-in-section text-center">
+                <h3 class="text-3xl font-semibold text-white mb-6">See QUTE in Action!</h3>
+                <img src="https://i.ibb.co/KzrtZsB3/qute-screenshot.png" alt="QUTE Gameplay Screenshot" class="rounded-xl shadow-lg mx-auto mb-6">
+                <p class="text-gray-300 text-md">
+                    A glimpse into building quantum circuits and solving puzzles in the QUTE lab.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Outcomes Section -->
+    <section id="learning" class="relative z-10 py-20 px-6 md:px-12 bg-gradient-to-b from-[#0A0A1A] to-[#1A1A3A]">
+        <div class="max-w-6xl mx-auto fade-in-section">
+            <h2 class="text-4xl font-bold text-white text-center mb-12">Learn & Master Quantum Concepts, Step-by-Step</h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="card-bg p-8 rounded-2xl">
+                    <h3 class="text-3xl font-semibold text-white mb-4">Structured Learning Journey</h3>
+                    <p class="text-gray-300 text-lg leading-relaxed mb-4">
+                        QUTE's curriculum is broken down into four clear modules. Each module builds on the last, making complex quantum ideas easy to grasp.
+                    </p>
+                    <ul class="list-disc list-inside text-gray-300 text-lg space-y-2">
+                        <li><b>Module 1: The Quantum Basics</b> (Qubit states, Superposition)</li>
+                        <li><b>Module 2: Interacting Qubits</b> (Multi-qubit systems, Entanglement)</li>
+                        <li><b>Module 3: Simple Quantum Algorithms</b> (Deutsch-Jozsa, Quantum Teleportation)</li>
+                        <li><b>Module 4: Advanced Concepts & Algorithms</b> (Grover's Search, QFT)</li>
+                    </ul>
+                </div>
+                <div class="card-bg p-8 rounded-2xl">
+                    <h3 class="text-3xl font-semibold text-white mb-4">Your AI Guide: Q-Bot</h3>
+                    <p class="text-gray-300 text-lg leading-relaxed mb-4">
+                        New concepts are introduced through fun, interactive mini-tutorials right in the game. Your friendly AI companion, Q-Bot, is always there to guide you with hints and clear explanations.
+                    </p>
+                    <!-- Simulated Q-Bot Chatbot Embedded Here -->
+                    <div class="relative w-full h-96 rounded-xl overflow-hidden shadow-lg border border-gray-700 flex flex-col">
+                        <div class="simulated-chatbot-messages" id="embedded-qbot-messages">
+                            <div class="bot-message">Hello! I'm Q-Bot, your quantum assistant. How can I help you learn about QUTE?</div>
+                        </div>
+                        <div class="simulated-chatbot-input">
+                            <input type="text" id="embedded-qbot-input" placeholder="Ask Q-Bot anything..." />
+                            <button id="embedded-qbot-send">Send</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="relative z-10 py-20 px-6 md:px-12 text-center bg-gradient-to-b from-[#1A1A3A] to-[#0A0A1A]">
+        <div class="max-w-4xl mx-auto fade-in-section">
+            <h2 class="text-4xl font-bold text-white mb-6">Ready to Explore the Quantum World?</h2>
+            <p class="text-lg text-gray-300 mb-10">
+                Join the Quantum Explorers and embark on an educational adventure unlike any other. Discover the mysteries of quantum computing through play!
+            </p>
+            <a href="https://acoustic-toad-985.convex.app/" class="btn-primary btn-pulse text-white font-bold py-4 px-10 rounded-xl text-xl inline-block">
+                Get QUTE Now (Prototype)
+            </a>
+            <p class="text-sm text-gray-500 mt-4">
+                *Note: This is a prototype showcasing core features and design. Full game coming soon!
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="relative z-10 py-10 px-6 md:px-12 text-center text-gray-500 bg-[#0A0A1A] border-t border-gray-800">
+        <div class="max-w-6xl mx-auto">
+            <p class="mb-4">&copy; 2025 QUTE Project. All rights reserved.</p>
+            <div class="flex justify-center space-x-6">
+                <a href="https://poe.com/QUTE-Bot" class="text-gray-400 hover:text-white transition duration-300">Privacy Policy</a>
+                <a href="https://poe.com/QUTE-Bot" class="text-gray-400 hover:text-white transition duration-300">Terms of Service</a>
+                <a href="https://www.instagram.com/playqute" class="text-gray-400 hover:text-white transition duration-300">Contact Us</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot Pop-up Button -->
+    <button id="open-chatbot-btn" aria-label="Open Q-Bot Chatbot">
+        🤖
+    </button>
+
+    <!-- Chatbot Pop-up Container -->
+    <div id="chatbot-container">
+        <div id="chatbot-header">
+            <span>Q-Bot Assistant</span>
+            <button id="close-chatbot-btn" aria-label="Close Q-Bot Chatbot">
+                &times;
+            </button>
+        </div>
+        <div class="simulated-chatbot-messages" id="popup-qbot-messages">
+            <div class="bot-message">Hello! I'm Q-Bot, your quantum assistant. How can I help you learn about QUTE?</div>
+        </div>
+        <div class="simulated-chatbot-input">
+            <input type="text" id="popup-qbot-input" placeholder="Ask Q-Bot anything..." />
+            <button id="popup-qbot-send">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for scroll-triggered fade-in animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('.fade-in-section');
+
+            const observerOptions = {
+                root: null, // relative to the viewport
+                rootMargin: '0px',
+                threshold: 0.1 // 10% of the section must be visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Stop observing once visible
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // --- Simulated Chatbot Functionality ---
+
+            const qbotResponses = {
+                "hello": "Greetings, Quantum Explorer! How can I assist you with QUTE?",
+                "what is qute": "QUTE is a mobile game that teaches quantum computing concepts through interactive puzzles in a futuristic lab.",
+                "how to play": "You build quantum circuits by dragging and dropping quantum gates onto qubit lines. Hit 'Run Circuit' to see the results!",
+                "quantum gates": "QUTE features gates like Hadamard (H) for superposition, CNOT (CX) for entanglement, and Pauli-X (X) to flip qubit states.",
+                "learning": "QUTE offers a structured learning journey across four modules, from quantum basics to advanced algorithms, guided by me, Q-Bot!",
+                "default": "I'm still learning! For more in-depth answers, please ask our full Q-Bot by clicking on this link: <a href='https://poe.com/QUTE-Bot' target='_blank' class='text-blue-400 hover:underline'>Poe.com/QUTE-Bot</a>"
+            };
+
+            function addMessage(messagesContainer, text, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
+                // Use innerHTML to allow the link to be clickable
+                messageDiv.innerHTML = text;
+                messagesContainer.appendChild(messageDiv);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight; // Scroll to bottom
+            }
+
+            function processQbotInput(inputElement, messagesContainer) {
+                const userText = inputElement.value.trim();
+                if (userText === "") return;
+
+                addMessage(messagesContainer, userText, 'user');
+                inputElement.value = ""; // Clear input
+
+                const lowerCaseText = userText.toLowerCase();
+                let botReply = qbotResponses["default"];
+
+                // Simple keyword matching for responses
+                if (lowerCaseText.includes("hello") || lowerCaseText.includes("hi")) {
+                    botReply = qbotResponses["hello"];
+                } else if (lowerCaseText.includes("what is qute") || lowerCaseText.includes("about qute")) {
+                    botReply = qbotResponses["what is qute"];
+                } else if (lowerCaseText.includes("how to play") || lowerCaseText.includes("gameplay")) {
+                    botReply = qbotResponses["how to play"];
+                } else if (lowerCaseText.includes("quantum gates") || lowerCaseText.includes("gates")) {
+                    botReply = qbotResponses["quantum gates"];
+                } else if (lowerCaseText.includes("learning") || lowerCaseText.includes("learn")) {
+                    botReply = qbotResponses["learning"];
+                }
+
+                setTimeout(() => {
+                    addMessage(messagesContainer, botReply, 'bot');
+                }, 500); // Simulate a slight delay for bot response
+            }
+
+            // Pop-up Chatbot Functionality
+            const openChatbotBtn = document.getElementById('open-chatbot-btn');
+            const closeChatbotBtn = document.getElementById('close-chatbot-btn');
+            const chatbotContainer = document.getElementById('chatbot-container');
+            const popupQbotInput = document.getElementById('popup-qbot-input');
+            const popupQbotSendBtn = document.getElementById('popup-qbot-send');
+            const popupQbotMessages = document.getElementById('popup-qbot-messages');
+
+            openChatbotBtn.addEventListener('click', () => {
+                chatbotContainer.classList.add('active');
+            });
+
+            closeChatbotBtn.addEventListener('click', () => {
+                chatbotContainer.classList.remove('active');
+            });
+
+            popupQbotSendBtn.addEventListener('click', () => {
+                processQbotInput(popupQbotInput, popupQbotMessages);
+            });
+
+            popupQbotInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    processQbotInput(popupQbotInput, popupQbotMessages);
+                }
+            });
+
+            // Embedded Chatbot Functionality
+            const embeddedQbotInput = document.getElementById('embedded-qbot-input');
+            const embeddedQbotSendBtn = document.getElementById('embedded-qbot-send');
+            const embeddedQbotMessages = document.getElementById('embedded-qbot-messages');
+
+            embeddedQbotSendBtn.addEventListener('click', () => {
+                processQbotInput(embeddedQbotInput, embeddedQbotMessages);
+            });
+
+            embeddedQbotInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    processQbotInput(embeddedQbotInput, embeddedQbotMessages);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
