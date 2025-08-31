@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QUTE: Quantum Understanding Through Experimentation</title>
     <link rel="icon" href="https://i.ibb.co/YT1NVnhC/539c325e-7d56-49f7-a9c3-b977675e5b9e-removalai-preview.png" type="image/png">
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts - Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         /* Custom styles for the QUTE website */
@@ -53,7 +51,6 @@
         .btn-pulse {
             animation: pulse-button 2s infinite;
         }
-
 
         /* Animated background elements (for subtle sci-fi feel) */
         .animated-bg-element {
@@ -270,24 +267,54 @@
                 bottom: 15px;
                 right: 15px;
             }
+            /* Hamburger menu for mobile */
+            .hamburger-menu {
+                display: block;
+                cursor: pointer;
+            }
+            .nav-links {
+                display: none;
+            }
+            .nav-links.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 80px; /* Adjust based on your header height */
+                right: 20px;
+                background-color: #1A1A3A;
+                padding: 1rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            }
+            .nav-links.active a {
+                padding: 0.5rem 0;
+            }
         }
     </style>
 </head>
 <body class="relative">
 
-    <!-- Animated background elements -->
     <div class="animated-bg-element element-1"></div>
     <div class="animated-bg-element element-2"></div>
     <div class="animated-bg-element element-3"></div>
 
-    <!-- Header/Navigation -->
-    <!-- Header/Navigation -->
-    <header class="relative z-10 p-6 md:p-8 flex justify-between items-center bg-gradient-to-b from-[#1A1A3A] to-transparent">
-        <div class="h-10 md:h-12"> <!-- Container for the logo image -->
-            <img src="https://i.ibb.co/0RW2Qsns/5f61a053-fef1-41c0-9bc9-6fc0abe9e488-removalai-preview.png" alt="QUTE Logo" style="height: 100px; width: auto; margin-top: -25px;">
+    <header class="relative z-10 p-4 md:p-8 flex justify-between items-center bg-gradient-to-b from-[#1A1A3A] to-transparent">
+        <div class="h-10 md:h-12">
+            <img src="https://i.ibb.co/0RW2Qsns/5f61a053-fef1-41c0-9bc9-6fc0abe9e488-removalai-preview.png" alt="QUTE Logo" class="h-auto w-32 md:w-40" style="margin-top: -25px;">
         </div>
-        <nav>
+        <button id="hamburger" class="md:hidden text-white focus:outline-none z-50">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+        <nav id="nav-menu" class="hidden md:block">
             <ul class="flex space-x-6">
+                <li><a href="https://www.instagram.com/playqute" class="text-gray-300 hover:text-white transition duration-300">About</a></li>
+                <li><a href="https://malak-q.github.io/QUTE/" class="text-gray-300 hover:text-white transition duration-300">Gameplay</a></li>
+                <li><a href="https://poe.com/QUTE-Bot" class="text-gray-300 hover:text-white transition duration-300">Learning</a></li>
+                <li><a href="https://www.instagram.com/playqute" class="text-gray-300 hover:text-white transition duration-300">Contact</a></li>
+            </ul>
+        </nav>
+        <nav id="mobile-nav-menu" class="hidden nav-links">
+            <ul class="flex flex-col space-y-4 text-right">
                 <li><a href="https://www.instagram.com/playqute" class="text-gray-300 hover:text-white transition duration-300">About</a></li>
                 <li><a href="https://malak-q.github.io/QUTE/" class="text-gray-300 hover:text-white transition duration-300">Gameplay</a></li>
                 <li><a href="https://poe.com/QUTE-Bot" class="text-gray-300 hover:text-white transition duration-300">Learning</a></li>
@@ -296,7 +323,6 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section class="relative z-10 hero-gradient min-h-screen flex items-center justify-center text-center p-6 md:p-12">
         <div class="max-w-4xl mx-auto">
             <h1 class="text-5xl md:text-7xl font-extrabold leading-tight text-white mb-6 animate-fade-in-up">
@@ -311,122 +337,111 @@
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="relative z-10 py-20 px-6 md:px-12 bg-gradient-to-b from-[#0A0A1A] to-[#1A1A3A]">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center fade-in-section">
+    <section id="about" class="relative z-10 py-16 px-6 md:py-20 md:px-12 bg-gradient-to-b from-[#0A0A1A] to-[#1A1A3A]">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12 items-center fade-in-section">
             <div>
-                <h2 class="text-4xl font-bold text-white mb-6">About QUTE: Your Quantum Adventure</h2>
-                <p class="text-gray-300 text-lg leading-relaxed mb-4">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 md:mb-6">About QUTE: Your Quantum Adventure</h2>
+                <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-4">
                     Step into a futuristic lab as a Quantum Explorer! QUTE is a groundbreaking mobile game designed to demystify quantum computing. Your mission: solve intricate puzzles to fix "Quantum Instabilities" and ultimately repair a "Core Anomaly" in the lab's main processor.
                 </p>
-                <p class="text-gray-300 text-lg leading-relaxed">
+                <p class="text-gray-300 text-base md:text-lg leading-relaxed">
                     We've integrated a powerful backend with Qiskit to handle complex quantum simulations, ensuring a seamless and accurate learning experience directly on your mobile device. No prior knowledge needed – just curiosity!
                 </p>
             </div>
-            <div class="card-bg p-8 rounded-2xl">
-                <img src="https://i.ibb.co/239jpKs9/gameplay-screenshot.png" alt="QUTE Game Lab View" class="rounded-xl shadow-lg mb-6">
-                <p class="text-gray-300 text-md">
+            <div class="card-bg p-6 md:p-8 rounded-2xl">
+                <img src="https://i.ibb.co/239jpKs9/gameplay-screenshot.png" alt="QUTE Game Lab View" class="rounded-xl shadow-lg mb-4 md:mb-6">
+                <p class="text-gray-300 text-sm md:text-md">
                     Explore a visually stunning futuristic lab environment.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- How It Works / Gameplay Section -->
-    <section id="gameplay" class="relative z-10 py-20 px-6 md:px-12 bg-gradient-to-b from-[#1A1A3A] to-[#0A0A1A]">
+    <section id="gameplay" class="relative z-10 py-16 px-6 md:py-20 md:px-12 bg-gradient-to-b from-[#1A1A3A] to-[#0A0A1A]">
         <div class="max-w-6xl mx-auto fade-in-section">
-            <h2 class="text-4xl font-bold text-white text-center mb-12">How QUTE Works: Simple Steps to Quantum Mastery</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Card 1: Drag & Drop -->
-                <div class="card-bg p-8 rounded-2xl text-center">
-                    <div class="text-5xl text-purple-400 mb-4">
-                        <!-- SVG for Drag & Drop -->
+            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-8 md:mb-12">How QUTE Works: Simple Steps to Quantum Mastery</h2>
+            <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+                <div class="card-bg p-6 md:p-8 rounded-2xl text-center">
+                    <div class="text-4xl md:text-5xl text-purple-400 mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
                     </div>
-                    <h3 class="text-2xl font-semibold text-white mb-4">Drag & Drop Gates</h3>
-                    <p class="text-gray-300">
+                    <h3 class="text-xl md:text-2xl font-semibold text-white mb-2 md:mb-4">Drag & Drop Gates</h3>
+                    <p class="text-gray-300 text-sm md:text-base">
                         Build quantum circuits easily by dragging gates onto qubit lines. It's like building with digital blocks!
                     </p>
                 </div>
-                <!-- Card 2: Visual Cues -->
-                <div class="card-bg p-8 rounded-2xl text-center">
-                    <div class="text-5xl text-blue-400 mb-4">
-                        <!-- SVG for Visual Cues (Eye) -->
+                <div class="card-bg p-6 md:p-8 rounded-2xl text-center">
+                    <div class="text-4xl md:text-5xl text-blue-400 mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                     </div>
-                    <h3 class="text-2xl font-semibold text-white mb-4">See Qubits Transform</h3>
-                    <p class="text-gray-300">
+                    <h3 class="text-xl md:text-2xl font-semibold text-white mb-2 md:mb-4">See Qubits Transform</h3>
+                    <p class="text-gray-300 text-sm md:text-base">
                         Watch qubits change color: blue for 0, red for 1, and a swirling mix for superposition. See entanglement happen!
                     </p>
                 </div>
-                <!-- Card 3: Real-time Feedback -->
-                <div class="card-bg p-8 rounded-2xl text-center">
-                    <div class="text-5xl text-green-400 mb-4">
-                        <!-- SVG for Feedback (Checkmark) -->
+                <div class="card-bg p-6 md:p-8 rounded-2xl text-center">
+                    <div class="text-4xl md:text-5xl text-green-400 mb-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-auto"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     </div>
-                    <h3 class="text-2xl font-semibold text-white mb-4">Instant Results</h3>
-                    <p class="text-gray-300">
+                    <h3 class="text-xl md:text-2xl font-semibold text-white mb-2 md:mb-4">Instant Results</h3>
+                    <p class="text-gray-300 text-sm md:text-base">
                         Get immediate visual feedback on your circuit. Learn from every action and see quantum mechanics in action.
                     </p>
                 </div>
             </div>
 
-            <div class="mt-16 card-bg p-8 rounded-2xl fade-in-section">
-                <h3 class="text-3xl font-semibold text-white mb-6 text-center">Meet the Quantum Gates: Your Tools for Discovery</h3>
-                <div class="grid md:grid-cols-3 gap-8 items-center">
+            <div class="mt-12 md:mt-16 card-bg p-6 md:p-8 rounded-2xl fade-in-section">
+                <h3 class="text-2xl md:text-3xl font-semibold text-white mb-6 text-center">Meet the Quantum Gates: Your Tools for Discovery</h3>
+                <div class="grid md:grid-cols-3 gap-6 md:gap-8 items-center">
                     <div class="flex flex-col items-center text-center">
-                        <div class="gate-icon w-16 h-16 text-2xl mb-4">H</div>
-                        <h4 class="text-xl font-medium text-white mb-2">Hadamard (H)</h4>
-                        <p class="text-gray-300">Creates superposition: a qubit becomes both 0 and 1 at the same time!</p>
+                        <div class="gate-icon w-12 h-12 md:w-16 md:h-16 text-xl md:text-2xl mb-2 md:mb-4">H</div>
+                        <h4 class="text-lg md:text-xl font-medium text-white mb-1 md:mb-2">Hadamard (H)</h4>
+                        <p class="text-gray-300 text-sm">Creates superposition: a qubit becomes both 0 and 1 at the same time!</p>
                     </div>
                     <div class="flex flex-col items-center text-center">
-                        <div class="gate-icon w-16 h-16 text-2xl mb-4">CX</div>
-                        <h4 class="text-xl font-medium text-white mb-2">CNOT (CX)</h4>
-                        <p class="text-gray-300">Entangles qubits: the state of one instantly affects the other, no matter the distance.</p>
+                        <div class="gate-icon w-12 h-12 md:w-16 md:h-16 text-xl md:text-2xl mb-2 md:mb-4">CX</div>
+                        <h4 class="text-lg md:text-xl font-medium text-white mb-1 md:mb-2">CNOT (CX)</h4>
+                        <p class="text-gray-300 text-sm">Entangles qubits: the state of one instantly affects the other, no matter the distance.</p>
                     </div>
                     <div class="flex flex-col items-center text-center">
-                        <div class="gate-icon w-16 h-16 text-2xl mb-4">X</div>
-                        <h4 class="text-xl font-medium text-white mb-2">Pauli-X (NOT)</h4>
-                        <p class="text-gray-300">Flips a qubit's state: 0 becomes 1, and 1 becomes 0. Simple, yet powerful!</p>
+                        <div class="gate-icon w-12 h-12 md:w-16 md:h-16 text-xl md:text-2xl mb-2 md:mb-4">X</div>
+                        <h4 class="text-lg md:text-xl font-medium text-white mb-1 md:mb-2">Pauli-X (NOT)</h4>
+                        <p class="text-gray-300 text-sm">Flips a qubit's state: 0 becomes 1, and 1 becomes 0. Simple, yet powerful!</p>
                     </div>
                 </div>
             </div>
-            <!-- New section for a gameplay screenshot -->
-            <div class="mt-16 card-bg p-8 rounded-2xl fade-in-section text-center">
-                <h3 class="text-3xl font-semibold text-white mb-6">See QUTE in Action!</h3>
-                <img src="https://i.ibb.co/KzrtZsB3/qute-screenshot.png" alt="QUTE Gameplay Screenshot" class="rounded-xl shadow-lg mx-auto mb-6">
-                <p class="text-gray-300 text-md">
+            <div class="mt-12 md:mt-16 card-bg p-6 md:p-8 rounded-2xl fade-in-section text-center">
+                <h3 class="text-2xl md:text-3xl font-semibold text-white mb-4 md:mb-6">See QUTE in Action!</h3>
+                <img src="https://i.ibb.co/KzrtZsB3/qute-screenshot.png" alt="QUTE Gameplay Screenshot" class="rounded-xl shadow-lg mx-auto mb-4 md:mb-6">
+                <p class="text-gray-300 text-sm md:text-md">
                     A glimpse into building quantum circuits and solving puzzles in the QUTE lab.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Learning Outcomes Section -->
-    <section id="learning" class="relative z-10 py-20 px-6 md:px-12 bg-gradient-to-b from-[#0A0A1A] to-[#1A1A3A]">
+    <section id="learning" class="relative z-10 py-16 px-6 md:py-20 md:px-12 bg-gradient-to-b from-[#0A0A1A] to-[#1A1A3A]">
         <div class="max-w-6xl mx-auto fade-in-section">
-            <h2 class="text-4xl font-bold text-white text-center mb-12">Learn & Master Quantum Concepts, Step-by-Step</h2>
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="card-bg p-8 rounded-2xl">
-                    <h3 class="text-3xl font-semibold text-white mb-4">Structured Learning Journey</h3>
-                    <p class="text-gray-300 text-lg leading-relaxed mb-4">
+            <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-8 md:mb-12">Learn & Master Quantum Concepts, Step-by-Step</h2>
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+                <div class="card-bg p-6 md:p-8 rounded-2xl">
+                    <h3 class="text-2xl md:text-3xl font-semibold text-white mb-4">Structured Learning Journey</h3>
+                    <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-4">
                         QUTE's curriculum is broken down into four clear modules. Each module builds on the last, making complex quantum ideas easy to grasp.
                     </p>
-                    <ul class="list-disc list-inside text-gray-300 text-lg space-y-2">
+                    <ul class="list-disc list-inside text-gray-300 text-base md:text-lg space-y-2">
                         <li><b>Module 1: The Quantum Basics</b> (Qubit states, Superposition)</li>
                         <li><b>Module 2: Interacting Qubits</b> (Multi-qubit systems, Entanglement)</li>
                         <li><b>Module 3: Simple Quantum Algorithms</b> (Deutsch-Jozsa, Quantum Teleportation)</li>
                         <li><b>Module 4: Advanced Concepts & Algorithms</b> (Grover's Search, QFT)</li>
                     </ul>
                 </div>
-                <div class="card-bg p-8 rounded-2xl">
-                    <h3 class="text-3xl font-semibold text-white mb-4">Your AI Guide: Q-Bot</h3>
-                    <p class="text-gray-300 text-lg leading-relaxed mb-4">
+                <div class="card-bg p-6 md:p-8 rounded-2xl">
+                    <h3 class="text-2xl md:text-3xl font-semibold text-white mb-4">Your AI Guide: Q-Bot</h3>
+                    <p class="text-gray-300 text-base md:text-lg leading-relaxed mb-4">
                         New concepts are introduced through fun, interactive mini-tutorials right in the game. Your friendly AI companion, Q-Bot, is always there to guide you with hints and clear explanations.
                     </p>
-                    <!-- Simulated Q-Bot Chatbot Embedded Here -->
-                    <div class="relative w-full h-96 rounded-xl overflow-hidden shadow-lg border border-gray-700 flex flex-col">
+                    <div class="relative w-full h-80 md:h-96 rounded-xl overflow-hidden shadow-lg border border-gray-700 flex flex-col">
                         <div class="simulated-chatbot-messages" id="embedded-qbot-messages">
                             <div class="bot-message">Hello! I'm Q-Bot, your quantum assistant. How can I help you learn about QUTE?</div>
                         </div>
@@ -440,27 +455,25 @@
         </div>
     </section>
 
-    <!-- Call to Action Section -->
-    <section class="relative z-10 py-20 px-6 md:px-12 text-center bg-gradient-to-b from-[#1A1A3A] to-[#0A0A1A]">
+    <section class="relative z-10 py-16 px-6 md:py-20 md:px-12 text-center bg-gradient-to-b from-[#1A1A3A] to-[#0A0A1A]">
         <div class="max-w-4xl mx-auto fade-in-section">
-            <h2 class="text-4xl font-bold text-white mb-6">Ready to Explore the Quantum World?</h2>
-            <p class="text-lg text-gray-300 mb-10">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 md:mb-6">Ready to Explore the Quantum World?</h2>
+            <p class="text-base md:text-lg text-gray-300 mb-8 md:mb-10">
                 Join the Quantum Explorers and embark on an educational adventure unlike any other. Discover the mysteries of quantum computing through play!
             </p>
-            <a href="https://malak-q.github.io/QUTE/" class="btn-primary btn-pulse text-white font-bold py-4 px-10 rounded-xl text-xl inline-block">
+            <a href="https://malak-q.github.io/QUTE/" class="btn-primary btn-pulse text-white font-bold py-4 px-8 rounded-xl text-lg inline-block">
                 Get QUTE Now (Prototype)
             </a>
-            <p class="text-sm text-gray-500 mt-4">
+            <p class="text-xs md:text-sm text-gray-500 mt-4">
                 *Note: This is a prototype showcasing core features and design. Full game coming soon!
             </p>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer id="contact" class="relative z-10 py-10 px-6 md:px-12 text-center text-gray-500 bg-[#0A0A1A] border-t border-gray-800">
+    <footer id="contact" class="relative z-10 py-8 px-6 md:py-10 md:px-12 text-center text-gray-500 bg-[#0A0A1A] border-t border-gray-800">
         <div class="max-w-6xl mx-auto">
-            <p class="mb-4">&copy; 2025 QUTE Project. All rights reserved.</p>
-            <div class="flex justify-center space-x-6">
+            <p class="mb-4 text-sm md:text-base">&copy; 2025 QUTE Project. All rights reserved.</p>
+            <div class="flex flex-col md:flex-row justify-center space-y-2 md:space-y-0 md:space-x-6">
                 <a href="https://poe.com/QUTE-Bot" class="text-gray-400 hover:text-white transition duration-300">Privacy Policy</a>
                 <a href="https://poe.com/QUTE-Bot" class="text-gray-400 hover:text-white transition duration-300">Terms of Service</a>
                 <a href="https://www.instagram.com/playqute" class="text-gray-400 hover:text-white transition duration-300">Contact Us</a>
@@ -468,12 +481,10 @@
         </div>
     </footer>
 
-    <!-- Chatbot Pop-up Button -->
     <button id="open-chatbot-btn" aria-label="Open Q-Bot Chatbot">
         🤖
     </button>
 
-    <!-- Chatbot Pop-up Container -->
     <div id="chatbot-container">
         <div id="chatbot-header">
             <span>Q-Bot Assistant</span>
@@ -512,6 +523,15 @@
 
             sections.forEach(section => {
                 observer.observe(section);
+            });
+
+            // Mobile menu functionality
+            const hamburgerBtn = document.getElementById('hamburger');
+            const mobileNavMenu = document.getElementById('mobile-nav-menu');
+
+            hamburgerBtn.addEventListener('click', () => {
+                mobileNavMenu.classList.toggle('hidden');
+                mobileNavMenu.classList.toggle('active');
             });
 
             // --- Simulated Chatbot Functionality ---
@@ -606,4 +626,3 @@
     </script>
 </body>
 </html>
-
